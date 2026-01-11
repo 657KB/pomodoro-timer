@@ -1,9 +1,10 @@
 import { Timer } from './components/Timer'
+import { HeatMap } from './components/HeatMap'
 import { usePomodoro } from './hooks/usePomodoro'
 import { playNotificationSound } from './utils/sound'
 
 function App() {
-  const { getTodayCount, recordPomodoro } = usePomodoro()
+  const { history, getTodayCount, recordPomodoro } = usePomodoro()
 
   const handleWorkComplete = () => {
     playNotificationSound()
@@ -22,6 +23,10 @@ function App() {
         onWorkComplete={handleWorkComplete}
         onBreakComplete={handleBreakComplete}
       />
+      <section className="stats">
+        <h2>活动记录</h2>
+        <HeatMap history={history} />
+      </section>
     </div>
   )
 }
