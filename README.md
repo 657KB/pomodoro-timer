@@ -31,7 +31,7 @@ A modern Pomodoro timer application built with React and Vite, designed to boost
 
 1. **Clone the repository**
    ```bash
-   git clone <repository-url>
+   git clone https://github.com/657KB/pomodoro-timer.git
    cd pomodoro-timer
    ```
 

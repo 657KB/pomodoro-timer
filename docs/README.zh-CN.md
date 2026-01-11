@@ -31,7 +31,7 @@
 
 1. **克隆仓库**
    ```bash
-   git clone <repository-url>
+   git clone https://github.com/657KB/pomodoro-timer.git
    cd pomodoro-timer
    ```
 
