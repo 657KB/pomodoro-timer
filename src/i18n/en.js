@@ -4,6 +4,7 @@ export default {
     start: 'Start',
     pause: 'Pause',
     skip: 'Skip',
+    spaceToStart: 'Tip: Press Space to start or pause',
   },
   
   theme: {

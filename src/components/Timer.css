@@ -76,3 +76,20 @@
     height: 40px;
   }
 }
+
+.shortcut-hint {
+  position: absolute;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 0.75rem;
+  color: var(--color-text-secondary);
+  opacity: 0.5;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+  user-select: none;
+}
+
+.shortcut-hint.hidden {
+  opacity: 0;
+}

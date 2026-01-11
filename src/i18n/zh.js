@@ -4,6 +4,7 @@ export default {
     start: '开始',
     pause: '暂停',
     skip: '跳过',
+    spaceToStart: '提示：按空格键开始或暂停计时',
   },
   
   theme: {

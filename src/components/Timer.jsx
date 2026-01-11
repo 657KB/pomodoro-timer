@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect, useCallback } from 'react'
 import { Play, Pause, RotateCcw, SkipForward } from 'lucide-react'
 import { useTimer } from '../hooks/useTimer'
 import { useI18n } from '../hooks/useI18n.js'
@@ -15,6 +15,18 @@ export function Timer({ onWorkComplete, onBreakComplete, onStateChange, duration
   useEffect(() => {
     onStateChange?.({ isRunning, mode })
   }, [isRunning, mode, onStateChange])
+  
+  const handleKeyDown = useCallback((e) => {
+    if (e.code === 'Space' && e.target.tagName !== 'INPUT' && e.target.tagName !== 'BUTTON') {
+      e.preventDefault()
+      isRunning ? pause() : start()
+    }
+  }, [isRunning, pause, start])
+  
+  useEffect(() => {
+    document.addEventListener('keydown', handleKeyDown)
+    return () => document.removeEventListener('keydown', handleKeyDown)
+  }, [handleKeyDown])
   
   const minutes = Math.floor(timeLeft / 60)
   const seconds = Math.floor(timeLeft % 60)
@@ -33,6 +45,9 @@ export function Timer({ onWorkComplete, onBreakComplete, onStateChange, duration
         <button onClick={skip} className="btn btn-icon" aria-label={t('timer.skip')}>
           <SkipForward size={18} />
         </button>
+      </div>
+      <div className={`shortcut-hint ${isRunning ? 'hidden' : ''}`}>
+        {t('timer.spaceToStart')}
       </div>
     </div>
   )
