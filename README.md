@@ -1,16 +1,94 @@
-# React + Vite
+# 🍅 Pomodoro Timer (番茄钟)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+一个基于 React 和 Vite 构建的现代化番茄钟应用，旨在通过简洁的界面和实用的功能提升您的工作效率。
 
-Currently, two official plugins are available:
+## ✨ 功能特性
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **高效计时器**：严格遵循番茄工作法（25分钟工作 / 5分钟休息）。
+- **动态背景效果**：
+  - 专注模式（Work）：背景变为活力十足的番茄红 (`#FF6347`)。
+  - 休息模式（Break）：背景变为轻松的草坪绿 (`#4CAF50`)。
+- **智能主题管理**：支持浅色模式、深色模式以及跟随系统设置。
+- **活动热力图**：展示过去 12 周的番茄钟完成记录，类似于 GitHub 的贡献图，助您复盘效率。
+- **持久化存储**：您的历史记录和主题偏好将自动保存至浏览器的 `localStorage` 中。
+- **音频通知**：每当一个阶段完成时，应用会通过 Web Audio API 播放清脆的提醒音。
+- **全平台适配**：响应式设计，在移动端和桌面端均有出色表现。
 
-## React Compiler
+## 📸 界面预览
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+*(此处可放置截图占位符)*
 
-## Expanding the ESLint configuration
+## 🚀 快速开始
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+### 前提条件
+
+- [Node.js](https://nodejs.org/) (建议版本 18+)
+- [npm](https://www.npmjs.com/) 或 [yarn](https://yarnpkg.com/)
+
+### 安装与运行
+
+1. **克隆仓库**
+   ```bash
+   git clone <repository-url>
+   cd pomodoro-timer
+   ```
+
+2. **安装依赖**
+   ```bash
+   npm install
+   ```
+
+3. **启动开发服务器**
+   ```bash
+   npm run dev
+   ```
+
+4. **构建生产版本**
+   ```bash
+   npm run build
+   ```
+
+## 🛠️ 技术栈
+
+- **框架**: React 18
+- **构建工具**: Vite
+- **样式**: Vanilla CSS (无外部 CSS 框架)
+- **状态管理**: React Hooks (useState, useEffect, useCallback, useRef)
+- **数据存储**: LocalStorage API
+- **音频处理**: Web Audio API
+
+## 📂 项目结构
+
+```text
+src/
+├── App.jsx              # 主应用组件
+├── App.css              # 应用级样式
+├── index.css            # 全局变量、主题变量及基础样式
+├── main.jsx             # 程序入口
+├── components/
+│   ├── Timer.jsx        # 计时器显示及控制组件
+│   ├── Timer.css
+│   ├── HeatMap.jsx      # 活动热力图组件
+│   └── HeatMap.css
+├── hooks/
+│   ├── useTimer.js      # 核心计时逻辑 (倒计时、模式切换)
+│   ├── usePomodoro.js   # 历史记录追踪与持久化
+│   ├── useTheme.js      # 主题切换逻辑 (浅色/深色/系统)
+│   └── useRunningBackground.js  # 运行状态下的动态背景效果
+└── utils/
+    └── sound.js         # 基于 Web Audio API 的通知音效
+```
+
+## ⚙️ 自定义配置
+
+您可以根据需要修改 `src/hooks/useTimer.js` 中的常量来调整时长：
+
+```javascript
+// src/hooks/useTimer.js
+const WORK_TIME = 25 * 60; // 工作时长（秒）
+const BREAK_TIME = 5 * 60; // 休息时长（秒）
+```
+
+## 📄 开源协议
+
+本项目采用 [MIT](LICENSE) 协议。
