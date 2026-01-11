@@ -2,10 +2,10 @@ import { useState, useEffect, useCallback } from 'react'
 
 const STORAGE_KEY = 'pomodoro-theme'
 
-const THEME_CONFIG = {
-  light: { next: 'dark', icon: '☀️', label: '浅色' },
-  dark: { next: 'system', icon: '🌙', label: '深色' },
-  system: { next: 'light', icon: '💻', label: '跟随系统' }
+const NEXT_THEME = {
+  light: 'dark',
+  dark: 'system',
+  system: 'light'
 }
 
 export function useTheme() {
@@ -39,15 +39,8 @@ export function useTheme() {
   }, [])
 
   const toggle = useCallback(() => {
-    setTheme(prev => THEME_CONFIG[prev].next)
+    setTheme(prev => NEXT_THEME[prev])
   }, [])
 
-  const config = THEME_CONFIG[theme]
-
-  return {
-    theme,
-    icon: config.icon,
-    label: config.label,
-    toggle
-  }
+  return { theme, toggle }
 }
