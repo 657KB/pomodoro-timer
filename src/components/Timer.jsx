@@ -1,6 +1,7 @@
 import { useEffect, useCallback } from 'react'
 import { Play, Pause, RotateCcw, SkipForward } from 'lucide-react'
 import { useTimer } from '../hooks/useTimer'
+import { useWakeLock } from '../hooks/useWakeLock'
 import { useI18n } from '../hooks/useI18n.js'
 import './Timer.css'
 
@@ -11,6 +12,8 @@ export function Timer({ onWorkComplete, onBreakComplete, onStateChange, duration
     onBreakComplete,
     durations
   )
+  
+  useWakeLock(isRunning)
   
   useEffect(() => {
     onStateChange?.({ isRunning, mode })
