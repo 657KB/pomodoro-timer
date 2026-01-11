@@ -1,94 +1,86 @@
-# 🍅 Pomodoro Timer (番茄钟)
+# 🍅 Pomodoro Timer
 
-一个基于 React 和 Vite 构建的现代化番茄钟应用，旨在通过简洁的界面和实用的功能提升您的工作效率。
+**English** | [中文](docs/README.zh-CN.md)
 
-## ✨ 功能特性
+A modern Pomodoro timer application built with React and Vite, designed to boost your productivity through a clean interface and practical features.
 
-- **高效计时器**：严格遵循番茄工作法（25分钟工作 / 5分钟休息）。
-- **动态背景效果**：
-  - 专注模式（Work）：背景变为活力十足的番茄红 (`#FF6347`)。
-  - 休息模式（Break）：背景变为轻松的草坪绿 (`#4CAF50`)。
-- **智能主题管理**：支持浅色模式、深色模式以及跟随系统设置。
-- **活动热力图**：展示过去 12 周的番茄钟完成记录，类似于 GitHub 的贡献图，助您复盘效率。
-- **持久化存储**：您的历史记录和主题偏好将自动保存至浏览器的 `localStorage` 中。
-- **音频通知**：每当一个阶段完成时，应用会通过 Web Audio API 播放清脆的提醒音。
-- **全平台适配**：响应式设计，在移动端和桌面端均有出色表现。
+## ✨ Features
 
-## 📸 界面预览
+- **Efficient Timer**: Strictly follows the Pomodoro Technique (25 min work / 5 min break).
+- **Dynamic Background Effects**:
+  - Focus Mode (Work): Background turns to an energetic tomato red (`#FF6347`).
+  - Break Mode: Background transitions to a relaxing lawn green (`#4CAF50`).
+- **Smart Theme Management**: Supports light mode, dark mode, and system preference detection.
+- **Activity Heatmap**: Displays your Pomodoro completion history over the past 12 weeks, similar to GitHub's contribution graph, helping you track your productivity.
+- **Persistent Storage**: Your history and theme preferences are automatically saved to the browser's `localStorage`.
+- **Audio Notifications**: Plays a crisp notification sound via the Web Audio API when each phase completes.
+- **Cross-Platform Responsive**: Responsive design that looks great on both mobile and desktop devices.
 
-*(此处可放置截图占位符)*
+## 📸 Screenshots
 
-## 🚀 快速开始
+![screenshot.png](./assets/screenshot.png)
 
-### 前提条件
+## 🚀 Getting Started
 
-- [Node.js](https://nodejs.org/) (建议版本 18+)
-- [npm](https://www.npmjs.com/) 或 [yarn](https://yarnpkg.com/)
+### Prerequisites
 
-### 安装与运行
+- [Node.js](https://nodejs.org/) (v18+ recommended)
+- [npm](https://www.npmjs.com/) or [yarn](https://yarnpkg.com/)
 
-1. **克隆仓库**
+### Installation
+
+1. **Clone the repository**
    ```bash
    git clone <repository-url>
    cd pomodoro-timer
    ```
 
-2. **安装依赖**
+2. **Install dependencies**
    ```bash
    npm install
    ```
 
-3. **启动开发服务器**
+3. **Start the development server**
    ```bash
    npm run dev
    ```
 
-4. **构建生产版本**
+4. **Build for production**
    ```bash
    npm run build
    ```
 
-## 🛠️ 技术栈
+## 🛠️ Tech Stack
 
-- **框架**: React 18
-- **构建工具**: Vite
-- **样式**: Vanilla CSS (无外部 CSS 框架)
-- **状态管理**: React Hooks (useState, useEffect, useCallback, useRef)
-- **数据存储**: LocalStorage API
-- **音频处理**: Web Audio API
+- **Framework**: React 18
+- **Build Tool**: Vite
+- **Styling**: Vanilla CSS (no external CSS frameworks)
+- **State Management**: React Hooks (useState, useEffect, useCallback, useRef)
+- **Data Storage**: LocalStorage API
+- **Audio**: Web Audio API
 
-## 📂 项目结构
+## 📂 Project Structure
 
 ```text
 src/
-├── App.jsx              # 主应用组件
-├── App.css              # 应用级样式
-├── index.css            # 全局变量、主题变量及基础样式
-├── main.jsx             # 程序入口
+├── App.jsx              # Main application component
+├── App.css              # Application-level styles
+├── index.css            # Global variables, theme tokens, and base styles
+├── main.jsx             # Entry point
 ├── components/
-│   ├── Timer.jsx        # 计时器显示及控制组件
+│   ├── Timer.jsx        # Timer display and control component
 │   ├── Timer.css
-│   ├── HeatMap.jsx      # 活动热力图组件
+│   ├── HeatMap.jsx      # Activity heatmap component
 │   └── HeatMap.css
 ├── hooks/
-│   ├── useTimer.js      # 核心计时逻辑 (倒计时、模式切换)
-│   ├── usePomodoro.js   # 历史记录追踪与持久化
-│   ├── useTheme.js      # 主题切换逻辑 (浅色/深色/系统)
-│   └── useRunningBackground.js  # 运行状态下的动态背景效果
+│   ├── useTimer.js      # Core timer logic (countdown, mode switching)
+│   ├── usePomodoro.js   # History tracking and persistence
+│   ├── useTheme.js      # Theme switching logic (light/dark/system)
+│   └── useRunningBackground.js  # Dynamic background effects during running state
 └── utils/
-    └── sound.js         # 基于 Web Audio API 的通知音效
+    └── sound.js         # Web Audio API notification sounds
 ```
 
-## ⚙️ 自定义配置
+## 📄 License
 
-您可以根据需要修改 `src/hooks/useTimer.js` 中的常量来调整时长：
-
-```javascript
-// src/hooks/useTimer.js
-const WORK_TIME = 25 * 60; // 工作时长（秒）
-const BREAK_TIME = 5 * 60; // 休息时长（秒）
-```
-
-## 📄 开源协议
-
-本项目采用 [MIT](LICENSE) 协议。
+This project is licensed under the [MIT](LICENSE) License.
