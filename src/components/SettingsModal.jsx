@@ -4,7 +4,12 @@ import './SettingsModal.css'
 
 function DurationInput({ id, label, value, onChange, max = 60, unit }) {
   function handleChange(e) {
-    const numValue = Math.max(1, Math.min(max, parseInt(e.target.value) || 1))
+    const raw = e.target.value
+    if (raw === '') {
+      onChange('')
+      return
+    }
+    const numValue = Math.max(1, Math.min(max, parseInt(raw) || 1))
     onChange(numValue)
   }
 
@@ -48,9 +53,17 @@ function SettingsContent({ settings, onSave, onClose, defaultSettings }) {
     return () => document.removeEventListener('keydown', handleKeyDown)
   }, [handleClose])
 
+  const hasEmptyValue = localSettings.workDuration === '' || 
+    localSettings.shortBreakDuration === '' || 
+    localSettings.longBreakDuration === ''
+
   function handleSave() {
-    onSave(localSettings)
-    handleClose()
+    if (hasEmptyValue) return
+    setVisible(false)
+    setTimeout(() => {
+      onSave(localSettings)
+      onClose()
+    }, 250)
   }
 
   function updateField(field, value) {
@@ -123,7 +136,11 @@ function SettingsContent({ settings, onSave, onClose, defaultSettings }) {
             <button className="settings-btn settings-btn-cancel" onClick={handleClose}>
               {t('settings.cancel')}
             </button>
-            <button className="settings-btn settings-btn-save" onClick={handleSave}>
+            <button 
+              className="settings-btn settings-btn-save" 
+              onClick={handleSave}
+              disabled={hasEmptyValue}
+            >
               {t('settings.save')}
             </button>
           </div>

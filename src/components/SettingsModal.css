@@ -148,6 +148,11 @@
   background: var(--color-accent-hover);
 }
 
+.settings-btn-save:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
 @media (max-width: 480px) {
   .settings-modal {
     max-width: 100%;
