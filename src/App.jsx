@@ -2,6 +2,7 @@ import { Timer } from './components/Timer'
 import { HeatMap } from './components/HeatMap'
 import { usePomodoro } from './hooks/usePomodoro'
 import { playNotificationSound } from './utils/sound'
+import './App.css'
 
 function App() {
   const { history, getTodayCount, recordPomodoro } = usePomodoro()
