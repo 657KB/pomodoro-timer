@@ -6,12 +6,12 @@ A modern Pomodoro timer application built with React and Vite, designed to boost
 
 ## ✨ Features
 
-- **Efficient Timer**: Strictly follows the Pomodoro Technique (25 min work / 5 min break).
+- **Efficient Timer**: Strictly follows the Pomodoro Technique (25 min work / 5 min short break / 15 min long break).
 - **Dynamic Background Effects**:
   - Focus Mode (Work): Background turns to an energetic tomato red (`#FF6347`).
   - Break Mode: Background transitions to a relaxing lawn green (`#4CAF50`).
 - **Smart Theme Management**: Supports light mode, dark mode, and system preference detection.
-- **Activity Heatmap**: Displays your Pomodoro completion history over the past 12 weeks, similar to GitHub's contribution graph, helping you track your productivity.
+- **Activity Heatmap**: Displays your Pomodoro completion history over the past 365 days, similar to GitHub's contribution graph, helping you track your productivity.
 - **Persistent Storage**: Your history and theme preferences are automatically saved to the browser's `localStorage`.
 - **Audio Notifications**: Plays a crisp notification sound via the Web Audio API when each phase completes.
 - **Cross-Platform Responsive**: Responsive design that looks great on both mobile and desktop devices.
