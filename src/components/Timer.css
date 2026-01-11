@@ -100,3 +100,29 @@
 .timer.break .btn-primary:hover {
   background: #66bb6a;
 }
+
+@media (max-width: 480px) {
+  .timer {
+    padding: 1.5rem;
+    gap: 1rem;
+  }
+
+  .timer-mode {
+    font-size: 1.25rem;
+  }
+
+  .timer-display {
+    font-size: 4rem;
+  }
+
+  .timer-controls {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .btn {
+    padding: 0.625rem 1.25rem;
+    font-size: 0.9rem;
+    min-width: 80px;
+  }
+}

@@ -85,3 +85,14 @@
 .heatmap-legend .heatmap-cell:hover {
   transform: none;
 }
+
+@media (max-width: 480px) {
+  .heatmap-container {
+    padding: 1rem;
+    overflow-x: auto;
+  }
+
+  .heatmap-wrapper {
+    min-width: max-content;
+  }
+}
