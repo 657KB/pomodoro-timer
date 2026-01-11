@@ -1,11 +1,20 @@
+import { useEffect } from 'react'
+import { Play, Pause, RotateCcw, SkipForward } from 'lucide-react'
 import { useTimer } from '../hooks/useTimer'
+import { useI18n } from '../hooks/useI18n.js'
 import './Timer.css'
 
-export function Timer({ todayCount = 0, onWorkComplete, onBreakComplete }) {
+export function Timer({ onWorkComplete, onBreakComplete, onStateChange, durations }) {
+  const { t } = useI18n()
   const { timeLeft, isRunning, mode, start, pause, reset, skip } = useTimer(
     onWorkComplete,
-    onBreakComplete
+    onBreakComplete,
+    durations
   )
+  
+  useEffect(() => {
+    onStateChange?.({ isRunning, mode })
+  }, [isRunning, mode, onStateChange])
   
   const minutes = Math.floor(timeLeft / 60)
   const seconds = Math.floor(timeLeft % 60)
@@ -13,17 +22,17 @@ export function Timer({ todayCount = 0, onWorkComplete, onBreakComplete }) {
   
   return (
     <div className={`timer ${mode}`}>
-      <div className="timer-mode">
-        {mode === 'work' ? '工作中 🍅' : '休息中 ☕'}
-      </div>
       <div className="timer-display">{formattedTime}</div>
-      <div className="timer-count">今日完成: {todayCount} 个番茄钟</div>
       <div className="timer-controls">
-        <button onClick={isRunning ? pause : start} className="btn btn-primary">
-          {isRunning ? '暂停' : '开始'}
+        <button onClick={reset} className="btn btn-icon" aria-label={t('timer.reset')}>
+          <RotateCcw size={18} />
         </button>
-        <button onClick={reset} className="btn btn-secondary">重置</button>
-        <button onClick={skip} className="btn btn-secondary">跳过</button>
+        <button onClick={isRunning ? pause : start} className="btn btn-primary" aria-label={isRunning ? t('timer.pause') : t('timer.start')}>
+          {isRunning ? <Pause size={24} /> : <Play size={24} />}
+        </button>
+        <button onClick={skip} className="btn btn-icon" aria-label={t('timer.skip')}>
+          <SkipForward size={18} />
+        </button>
       </div>
     </div>
   )

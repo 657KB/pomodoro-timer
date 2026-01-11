@@ -1,4 +1,5 @@
-import { useMemo } from 'react'
+import { useMemo, useRef, useState, useEffect, useCallback } from 'react'
+import { useI18n } from '../hooks/useI18n.js'
 import './HeatMap.css'
 
 function getDateString(date) {
@@ -9,7 +10,7 @@ function getDayOfWeek(date) {
   return date.getDay()
 }
 
-function generateLast12Weeks() {
+function generateLastYear() {
   const days = []
   const today = new Date()
   today.setHours(0, 0, 0, 0)
@@ -18,10 +19,13 @@ function generateLast12Weeks() {
   const endOfWeek = new Date(today)
   endOfWeek.setDate(today.getDate() + (6 - todayDayOfWeek))
   
-  const startDate = new Date(endOfWeek)
-  startDate.setDate(endOfWeek.getDate() - 83)
+  const totalWeeks = 53
+  const totalDays = totalWeeks * 7
   
-  for (let i = 0; i < 84; i++) {
+  const startDate = new Date(endOfWeek)
+  startDate.setDate(endOfWeek.getDate() - totalDays + 1)
+  
+  for (let i = 0; i < totalDays; i++) {
     const date = new Date(startDate)
     date.setDate(startDate.getDate() + i)
     days.push({
@@ -43,41 +47,66 @@ function getLevel(count) {
 }
 
 export function HeatMap({ history = {} }) {
-  const days = useMemo(() => generateLast12Weeks(), [])
-  
-  const weekLabels = ['日', '一', '二', '三', '四', '五', '六']
+  const { t } = useI18n()
+  const days = useMemo(() => generateLastYear(), [])
+  const wrapperRef = useRef(null)
+  const [showLeftMask, setShowLeftMask] = useState(false)
+  const [showRightMask, setShowRightMask] = useState(false)
+
+  const updateMasks = useCallback(() => {
+    const el = wrapperRef.current
+    if (!el) return
+    
+    const { scrollLeft, scrollWidth, clientWidth } = el
+    const threshold = 5
+    
+    setShowLeftMask(scrollLeft > threshold)
+    setShowRightMask(scrollLeft < scrollWidth - clientWidth - threshold)
+  }, [])
+
+  useEffect(() => {
+    const el = wrapperRef.current
+    if (!el) return
+
+    updateMasks()
+    
+    el.addEventListener('scroll', updateMasks, { passive: true })
+    window.addEventListener('resize', updateMasks)
+    
+    return () => {
+      el.removeEventListener('scroll', updateMasks)
+      window.removeEventListener('resize', updateMasks)
+    }
+  }, [updateMasks])
   
   return (
     <div className="heatmap-container">
-      <div className="heatmap-wrapper">
-        <div className="heatmap-labels">
-          {weekLabels.map((label, i) => (
-            <span key={i} className="heatmap-label">{i % 2 === 0 ? label : ''}</span>
-          ))}
+      <div className="heatmap-scroll-area">
+        {showLeftMask && <div className="heatmap-mask heatmap-mask-left" />}
+        <div className="heatmap-wrapper" ref={wrapperRef}>
+          <div className="heatmap-grid">
+            {days.map((day, i) => {
+              const count = history[day.date] || 0
+              const level = day.isFuture ? -1 : getLevel(count)
+              return (
+                <div
+                  key={i}
+                  className="heatmap-cell"
+                  data-level={level}
+                  title={day.isFuture ? '' : `${day.date}: ${count} ${t('history.pomodoros')}`}
+                />
+              )
+            })}
+          </div>
         </div>
-        <div className="heatmap-grid">
-          {days.map((day, i) => {
-            const count = history[day.date] || 0
-            const level = day.isFuture ? -1 : getLevel(count)
-            return (
-              <div
-                key={i}
-                className="heatmap-cell"
-                data-level={level}
-                title={day.isFuture ? '' : `${day.date}: ${count} 个番茄钟`}
-              />
-            )
-          })}
-        </div>
+        {showRightMask && <div className="heatmap-mask heatmap-mask-right" />}
       </div>
       <div className="heatmap-legend">
-        <span>少</span>
         <div className="heatmap-cell" data-level="0" />
         <div className="heatmap-cell" data-level="1" />
         <div className="heatmap-cell" data-level="2" />
         <div className="heatmap-cell" data-level="3" />
         <div className="heatmap-cell" data-level="4" />
-        <span>多</span>
       </div>
     </div>
   )
